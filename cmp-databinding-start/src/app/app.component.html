@@ -12,7 +12,7 @@
       [srvElement]="serverElement"
       [name]="serverElement.name">
       <div class="panel-body">
-    <p>
+    <p #contentParagraph>
       <strong *ngIf="serverElement.type === 'server'" style="color: red">{{ serverElement.content }}</strong>
       <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
     </p>
