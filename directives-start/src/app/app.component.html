@@ -9,18 +9,24 @@
             {{odd}}
           </li>
         </div>
-        <div *ngIf="!onlyOdd">
-          <li class="list-group-item" *ngFor="let even of evenNumbers" [ngClass]="{odd: even % 2 !== 0}" [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}">
+        <div *appUnless="onlyOdd">
+          <li class="list-group-item" *ngFor="let even of evenNumbers" [ngClass]="{even: even % 2 !== 0}" [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}">
             {{even}}
           </li>
         </div>
-        <ng-template [ngIf]="!onlyOdd"> <!-- the same as upper block with *ngIf="!onlyOdd", this is how *ngIf transforms by angular -->
+        <!--<div *ngIf="!onlyOdd">
+          <li class="list-group-item" *ngFor="let even of evenNumbers" [ngClass]="{odd: even % 2 !== 0}" [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}">
+            {{even}}
+          </li>
+        </div>-->
+        <!-- the same as upper block with *ngIf="!onlyOdd", this is how *ngIf transforms by angular -->
+        <!--<ng-template [ngIf]="!onlyOdd">
           <div>
             <li class="list-group-item" *ngFor="let even of evenNumbers" [ngClass]="{odd: even % 2 !== 0}" [ngStyle]="{backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'}">
               {{even}}
             </li>
           </div>
-        </ng-template>
+        </ng-template>-->
       </ul>
       <p appBasicHighlight>Styled with my basichightlight directive</p>
       <p [appBetterHighlight]="'red'" [defaultColor]="'yellow'">Styled with my betterhightlight directive</p>
