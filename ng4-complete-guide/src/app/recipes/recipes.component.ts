@@ -8,11 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipesComponent implements OnInit {
 
-  recipeDetail: Recipe;
-
-  onRecipeSelected(recipe: Recipe) {
-    this.recipeDetail = recipe;
-  }
+  selectedRecepie: Recipe;
 
   constructor() { }
 

@@ -14,10 +14,10 @@ export class RecipeListComponent implements OnInit {
     new Recipe('recipe 2', 'simple desc 2', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_2CAqyCXQmXjqazz1Ge3SUkv-cRock-wZgrhvEF0Is9xRJejR')
   ];
 
-  @Output() recipeClickEvent = new EventEmitter<Recipe>();
+  @Output() recipeWasSelected = new EventEmitter<Recipe>();
 
-  onRecipeClick(recipe: Recipe) {
-    this.recipeClickEvent.emit(recipe);
+  onRecepieSelected(recipeEl: Recipe) {
+    this.recipeWasSelected.emit(recipeEl);
   }
 
   constructor() { }
