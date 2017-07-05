@@ -6,8 +6,8 @@
 
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">Recipes</a></li>
-                <li><a href="#">Shopping list</a></li>
+                <li [ngClass]="{active: activePage === recipesPage}"><a href="#" (click)="onMenuItemClick(recipesPage)">Recipes</a></li>
+                <li [ngClass]="{active: activePage === shoppingPage}"><a href="#" (click)="onMenuItemClick(shoppingPage)">Shopping list</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">                
                 <li class="dropdown">

@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+  recipesPage = 'app-recipes';
+  shoppingPage = 'app-shopping-list';
+  activePage = this.recipesPage;
+  onMenuItemClicked(activePage: string) {
+    this.activePage = activePage;
+  }
 }

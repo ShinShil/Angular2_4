@@ -1,11 +1,16 @@
-<app-header>
+<app-header
+(menuItemClickEvent)="onMenuItemClicked($event)"
+[recipesPage]="recipesPage"
+[shoppingPage]="shoppingPage"
+[activePage]="activePage"
+>
 <hr>
 </app-header>
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <app-recipes></app-recipes>
-      <app-shopping-list></app-shopping-list>
+      <app-recipes *ngIf="activePage === recipesPage"></app-recipes>
+      <app-shopping-list *ngIf="activePage === shoppingPage"></app-shopping-list>
     </div>
   </div>
 </div>
