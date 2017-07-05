@@ -10,7 +10,11 @@ import { LoggingService } from './../shared/logging.service';
 })
 export class NewAccountComponent {
   constructor(private loggingService: LoggingService,
-  private accountsService: AccountsService) { }
+    private accountsService: AccountsService) {
+    this.accountsService.statusUpdated.subscribe((status: string) => {
+      alert('status updated to ' + status);
+    })
+  }
 
   onCreateAccount(accountName: string, accountStatus: string) {
     this.accountsService.addAccount(accountName, accountStatus);
