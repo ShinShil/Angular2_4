@@ -30,6 +30,12 @@
       </ul>
       <p appBasicHighlight>Styled with my basichightlight directive</p>
       <p [appBetterHighlight]="'red'" [defaultColor]="'yellow'">Styled with my betterhightlight directive</p>
+      <div [ngSwitch]="value">
+        <p *ngSwitchCase="5">Value is 5</p>
+        <p *ngSwitchCase="10">Value is 10</p>
+        <p *ngSwitchCase="100">Value is 100</p>
+        <p *ngSwitchCase="Default">Value is Default</p>
+      </div>
     </div>
   </div>
 </div>
