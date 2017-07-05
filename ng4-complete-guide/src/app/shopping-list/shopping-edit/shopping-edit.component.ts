@@ -13,19 +13,18 @@ export class ShoppingEditComponent implements OnInit {
 
   @ViewChild('nameInput') nameInput: ElementRef;
   @ViewChild('amountInput') amountInput: ElementRef;
-  
+
   constructor() { }
 
 
   ngOnInit() {
   }
 
-  onAddIngredient(name: string, amount: number) {
-    if (name && amount) {
-      this.addIngredient.emit(new Ingredient(name, amount));
-      this.nameInput.nativeElement.value = '';
-      this.amountInput.nativeElement.value = '';
-    }
+  onAddIngredient() {
+      const name = this.nameInput.nativeElement.value;
+      const amount = this.amountInput.nativeElement.value;
+      const newIngredient = new Ingredient(name, amount);
+      this.addIngredient.emit(newIngredient);
   }
 
 }
