@@ -1,5 +1,5 @@
 import { ServerModel } from './server/server.model';
-import { EventEmitter } from "@angular/core";
+import { EventEmitter } from '@angular/core';
 
 export class ServersService {
   selectedServer = new EventEmitter<ServerModel>();
@@ -26,7 +26,7 @@ export class ServersService {
     return this.servers;
   }
 
-  getServer(id: number) {
+  getServer(id: number): ServerModel {
     const server = this.servers.find(
       (s) => {
         return s.id === id;
