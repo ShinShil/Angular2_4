@@ -13,11 +13,15 @@ export class ServerComponent implements OnInit {
   server: ServerModel;
 
   constructor(private serversService: ServersService,
-   private router: Router,
-   private route: ActivatedRoute) { }
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.setServer(this.serversService.getServer(1));
+    this.setServer(this.serversService.getServer(+this.route.snapshot.params['id']));
+    this.route.params.subscribe(
+      (params) => {
+        this.setServer(this.serversService.getServer(+params['id']));
+      });
     this.serversService.selectedServer.subscribe((server: ServerModel) => {
       this.setServer(server);
     })
