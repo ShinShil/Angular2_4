@@ -4,7 +4,7 @@
       <a
         [routerLink] ="['/servers', 5, 'edit']" 
         [queryParams]="{allowEdit: '1'}"
-        href="#"
+        fragment="loading"
         class="list-group-item"
         *ngFor="let server of servers"
         (click)="onSelectServer(server)">
