@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { ServerModel } from './server.model';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,17 +12,23 @@ import { ServersService } from '../servers.service';
 export class ServerComponent implements OnInit {
   server: ServerModel;
 
-  constructor(private serversService: ServersService) { }
+  constructor(private serversService: ServersService,
+   private router: Router,
+   private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.setServer(this.serversService.getServer(1));
     this.serversService.selectedServer.subscribe((server: ServerModel) => {
       this.setServer(server);
-    })    
+    })
   }
 
   setServer(server: ServerModel) {
     this.server = server;
+  }
+
+  onReload() {
+    // this.router.navigate(['servers'], { relativeTo: this.route })
   }
 
 }
