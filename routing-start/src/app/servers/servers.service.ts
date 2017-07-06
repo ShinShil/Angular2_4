@@ -1,4 +1,9 @@
+import { ServerModel } from './server/server.model';
+import { EventEmitter } from "@angular/core";
+
 export class ServersService {
+  selectedServer = new EventEmitter<ServerModel>();
+
   private servers = [
     {
       id: 1,

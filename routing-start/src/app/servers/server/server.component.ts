@@ -1,3 +1,4 @@
+import { ServerModel } from './server.model';
 import { Component, OnInit } from '@angular/core';
 
 import { ServersService } from '../servers.service';
@@ -8,12 +9,19 @@ import { ServersService } from '../servers.service';
   styleUrls: ['./server.component.css']
 })
 export class ServerComponent implements OnInit {
-  server: {id: number, name: string, status: string};
+  server: ServerModel;
 
   constructor(private serversService: ServersService) { }
 
   ngOnInit() {
-    this.server = this.serversService.getServer(1);
+    this.setServer(this.serversService.getServer(1));
+    this.serversService.selectedServer.subscribe((server: ServerModel) => {
+      this.setServer(server);
+    })    
+  }
+
+  setServer(server: ServerModel) {
+    this.server = server;
   }
 
 }

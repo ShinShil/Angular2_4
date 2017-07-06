@@ -1,3 +1,4 @@
+import { ServerModel } from './server/server.model';
 import { Component, OnInit } from '@angular/core';
 import { ServersService } from './servers.service';
 
@@ -15,4 +16,7 @@ export class ServersComponent implements OnInit {
     this.servers = this.serversService.getServers();
   }
 
+  onSelectServer(server: ServerModel) {
+    this.serversService.selectedServer.emit(server)
+  }
 }

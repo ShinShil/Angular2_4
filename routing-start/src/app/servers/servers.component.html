@@ -4,7 +4,8 @@
       <a
         href="#"
         class="list-group-item"
-        *ngFor="let server of servers">
+        *ngFor="let server of servers"
+        (click)="onSelectServer(server)">
         {{ server.name }}
       </a>
     </div>
