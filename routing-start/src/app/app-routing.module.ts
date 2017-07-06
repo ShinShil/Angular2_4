@@ -14,23 +14,27 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent }, // empty path
-  {
-    path: 'users', component: UsersComponent, children: [
-      { path: ':id/:name', component: UserComponent },
-    ]
-  }, // ->localhost: 4200/users
-  {
-    path: 'servers', canActivate: [AuthGuardService], component: ServersComponent, children: [
-      { path: ':id', component: ServerComponent },
-      { path: ':id/edit', component: EditServerComponent }
-    ]
-  },
-  { path: 'not-found', component: PageNotFoundComponent },
-  { path: '**', redirectTo: '/not-found' }
+    { path: '', component: HomeComponent }, // empty path
+    {
+        path: 'users', component: UsersComponent, children: [
+            { path: ':id/:name', component: UserComponent },
+        ]
+    }, // ->localhost: 4200/users
+    {
+        path: 'servers',
+        //  canActivate: [AuthGuardService],
+        canActivateChild: [AuthGuardService],
+        component: ServersComponent,
+        children: [
+            { path: ':id', component: ServerComponent },
+            { path: ':id/edit', component: EditServerComponent }
+        ]
+    },
+    { path: 'not-found', component: PageNotFoundComponent },
+    { path: '**', redirectTo: '/not-found' }
 ]
 
-@NgModule( {
+@NgModule({
     imports: [
         RouterModule.forRoot(appRoutes)
     ],
