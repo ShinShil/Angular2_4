@@ -30,7 +30,10 @@ export class ServerComponent implements OnInit {
   setServer(server: ServerModel) {
     this.server = server;
   }
-
+  onEdit() {
+    // this.router.navigate(['servers', this.server.id, 'edit'], {queryParams: {allowEdit: 1}});
+    this.router.navigate(['edit'], {relativeTo: this.route});
+  }
   onReload() {
     // this.router.navigate(['servers'], { relativeTo: this.route })
   }
