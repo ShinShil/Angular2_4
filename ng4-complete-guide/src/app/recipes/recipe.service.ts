@@ -9,8 +9,9 @@ export class RecipeService {
 
     constructor(private shoppingListService: ShoppingListService) {}
 
-    private recepies: Recipe[] = [
+    private recipes: Recipe[] = [
         new Recipe(
+            0,
             'Fish with potatoe',
             'What else you need to say',
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_2CAqyCXQmXjqazz1Ge3SUkv-cRock-wZgrhvEF0Is9xRJejR',
@@ -19,6 +20,7 @@ export class RecipeService {
                 new Ingredient('Potatoe', 20)
             ]),
         new Recipe(
+            1,
             'Student dinner',
             'Amazing dish is waiting for you',
             'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_2CAqyCXQmXjqazz1Ge3SUkv-cRock-wZgrhvEF0Is9xRJejR',
@@ -28,11 +30,15 @@ export class RecipeService {
             ])
     ];
 
-    getRecepies() {
-        return this.recepies;
+    getRecipes() {
+        return this.recipes;
     }
 
     addIngredientToShoppingList(ingredients: Ingredient[]) {
         this.shoppingListService.addIngredients(ingredients);
+    }
+
+    getRecipe(id: number) {
+        return this.recipes[id];
     }
 }
