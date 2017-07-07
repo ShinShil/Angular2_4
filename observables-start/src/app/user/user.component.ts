@@ -1,3 +1,4 @@
+import { UsersService } from './../users.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -9,7 +10,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class UserComponent implements OnInit {
   id: number;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private usersService: UsersService) { }
 
   ngOnInit() {
     this.route.params
@@ -18,6 +19,10 @@ export class UserComponent implements OnInit {
           this.id = +params['id'];
         }
       );
+  }
+
+  onActivate() {
+    this.usersService.userActivated.next(this.id);
   }
 
 }
