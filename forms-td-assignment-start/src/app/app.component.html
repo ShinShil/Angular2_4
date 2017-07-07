@@ -15,23 +15,24 @@
       -->
       <form (ngSubmit)="onSubmit()" #f="ngForm">
         <div class="form-group">
+          <label for="email">Email</label>
           <input type="text" class="form-control" ngModel #email="ngModel" email name="email">
-          <span *ngIf="email.invalid && !email.untouched" class="help-block">Enter valid email</span>
+          <span *ngIf="email.invalid && !email.untouched" id="email" class="help-block">Enter valid email</span>
         </div>
         <div class="form-group">
-          <select class="form-control" [ngModel]="defaultSubscription" name="subscription">
-            <option class="form-control" value="basic">basic</option>
-            <option class="form-control" value="advanced">advanced</option>
-            <option class="form-control" value="pro">pro</option>
+          <label for="subscription">Subscription</label>
+          <select class="form-control" id="subscription" [ngModel]="defaultSubscription" name="subscription">
+            <option *ngFor="let subscription of subscriptions" [value]="subscription">{{subscription}}</option>
           </select>
         </div>
         <div class="form-group">
-          <input type="password" ngModel #password="ngModel" name="password" class="form-control">
+          <label for="password">Password</label>
+          <input type="password" id="password" ngModel #password="ngModel" name="password" class="form-control">
           <span *ngIf="password.invalid && !password.untouched" class="help-block">Password shouldn't be empty</span>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
-      <span class="help-block" *ngIf="f.invalid && !f.untouched">Form invalid</span>      
+      <span class="help-block" *ngIf="f.invalid && !f.untouched">Form invalid</span>
     </div>
   </div>
   <div class="row" *ngIf="submitted">
