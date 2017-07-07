@@ -9,8 +9,9 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <app-recipes *ngIf="activePage === recipesPage"></app-recipes>
-      <app-shopping-list *ngIf="activePage === shoppingPage"></app-shopping-list>
+      <router-outlet></router-outlet>
+      <!--<app-recipes *ngIf="activePage === recipesPage"></app-recipes>
+      <app-shopping-list *ngIf="activePage === shoppingPage"></app-shopping-list>-->
     </div>
   </div>
 </div>
