@@ -1,7 +1,7 @@
 import { Ingredient } from './../shared/ingredient.model';
-import { EventEmitter } from '@angular/core';
+import { Subject } from "rxjs/Subject";
 export class ShoppingListService {
-    ingredientsChanged = new EventEmitter<Ingredient[]>();
+    ingredientsChanged = new Subject();
 
     private ingredients: Ingredient[] = [
         new Ingredient('apple', 5),
@@ -10,7 +10,7 @@ export class ShoppingListService {
 
     addIngredient(ingredient: Ingredient) {
         this.ingredients.push(ingredient);
-        this.ingredientsChanged.emit(this.ingredients);
+        this.ingredientsChanged.next(this.ingredients);
     }
 
     getIngredients() {
@@ -22,6 +22,6 @@ export class ShoppingListService {
         //     this.addIngredient(ingredient); //each time will call event emitter, better to add al ingredietns and than cal emit one time
         // }
         this.ingredients.push(...ingredients);
-        this.ingredientsChanged.emit(this.ingredients);
+        this.ingredientsChanged.next(this.ingredients);
     }
 }
