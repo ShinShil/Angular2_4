@@ -1,6 +1,6 @@
 import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,12 +10,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
-
+  index: number;
   constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.recipe = this.recipeService.getRecipe(params['id']);
+      this.index = params['id'];
     })
   }
 
@@ -26,7 +27,12 @@ export class RecipeDetailComponent implements OnInit {
   onEditRecipe() {
     // both are working
     // this.router.navigate(['edit'], {relativeTo: this.route});
-    this.router.navigate(['..', this.recipe.id, 'edit'], {relativeTo: this.route});
+    this.router.navigate(['..', this.index, 'edit'], { relativeTo: this.route });
+  }
+
+  onDeleteRecipe() {
+    this.recipeService.deleteRecipe(this.index);
+    this.router.navigate(['/recipes']);
   }
 
 }

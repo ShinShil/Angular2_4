@@ -1,6 +1,6 @@
-export class Ingredient {    
+export class Ingredient {
     constructor(
-        public name:string,
-        public amount:number)
-    {}
+        public name: string,
+        public amount: number)
+    { }
 }
