@@ -9,6 +9,7 @@ export class Reverse implements PipeTransform {
     if (value.length > 0) {
       return value.split('').reverse().join('');
     }
+    return value;
   }
 
 }
