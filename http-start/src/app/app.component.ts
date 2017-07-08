@@ -44,7 +44,7 @@ export class AppComponent {
   onGet() {
     this.serverService.getServers().subscribe(
       (mappedData: any[]) => {
-        console.log(mappedData);
+        this.servers = mappedData;
       },
       (error) => {
         console.log(error);

@@ -7,7 +7,7 @@ export class ServerService {
     constructor(private http: Http) { }
 
     storeServers(servers: any[]) {
-        const headers = new Headers({'Content-type': 'application/json'});
+        const headers = new Headers({ 'Content-type': 'application/json' });
         // return this.http.post(
         //     'https://udemy-ng-http-694f0.firebaseio.com/data.json',
         //     servers,
@@ -20,9 +20,12 @@ export class ServerService {
 
     getServers() {
         return this.http.get('https://udemy-ng-http-694f0.firebaseio.com/data.json')
-        .map((request: Response) => {
-            const data = request.json();
-            return data;
-        });
+            .map((request: Response) => {
+                const data = request.json();
+                for (const server of data) {
+                    server.name = 'FETCHED_' + server.name;
+                }
+                return data;
+            });
     }
 }
