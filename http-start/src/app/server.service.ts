@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import 'rxjs/Rx';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ServerService {
+    
     constructor(private http: Http) { }
 
     storeServers(servers: any[]) {
@@ -32,5 +33,9 @@ export class ServerService {
                 console.log(error);
                 return Observable.throw(error);
             });
+    }
+    getAppName() {
+        return this.http.get('https://udemy-ng-http-694f0.firebaseio.com/appName.json')
+            .map((response: Response) => response.json());
     }
 }
