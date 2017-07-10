@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthService {
+  token: string;
 
   constructor() { }
 
@@ -15,11 +16,17 @@ export class AuthService {
   }
   signinUser(email: string, password: string) {
     firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(
-      response => console.log(response)
-      )
-      .catch(
-      error => console.log(error)
-      )
+      .then(response => {
+        console.log(response);
+        firebase.auth().currentUser.getToken()
+          .then(token => this.token = token)
+      })
+      .catch(error => console.log(error))
+  }
+
+  getToken() {
+    firebase.auth().currentUser.getToken()
+          .then(token => this.token = token)
+    return this.token;
   }
 }
