@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from './../auth.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -10,12 +10,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router
+    , private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.authService.authSubject.subscribe((success: boolean) => {
       if (success) {
-        this.router.navigate(['/recipes']);
+        this.router.navigate(['..'], {relativeTo: this.route});
       }
     })
   }

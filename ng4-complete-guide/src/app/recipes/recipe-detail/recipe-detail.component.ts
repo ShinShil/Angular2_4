@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/auth.service';
 import { RecipeService } from './../recipe.service';
 import { Recipe } from './../recipe.model';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   index: number;
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private recipeService: RecipeService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -31,8 +35,12 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   onDeleteRecipe() {
-    this.recipeService.deleteRecipe(this.index);
-    this.router.navigate(['/recipes']);
+    if (!this.authService.isAuthenticated()) {
+      alert('access denied');
+    } else {
+      this.recipeService.deleteRecipe(this.index);
+      this.router.navigate(['/recipes']);
+    }
   }
 
 }

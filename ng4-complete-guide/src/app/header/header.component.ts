@@ -20,4 +20,7 @@ export class HeaderComponent {
     onFetchData() {
         this.dataStorageService.getRecepies();
     }
+    onLogout() {
+        this.authService.logout();
+    }
 }
