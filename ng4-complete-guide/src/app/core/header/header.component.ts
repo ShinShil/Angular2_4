@@ -1,7 +1,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from './../auth/auth.service';
+import { AuthService } from './../../auth/auth.service';
 import { Subscription } from 'rxjs/Subscription';
-import { DataStorageService } from './../shared/data-storage.service';
+import { DataStorageService } from './../../shared/data-storage.service';
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 
