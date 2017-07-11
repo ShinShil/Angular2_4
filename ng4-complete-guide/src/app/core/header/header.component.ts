@@ -13,6 +13,10 @@ export class HeaderComponent {
     constructor(private dataStorageService: DataStorageService, private authService: AuthService, private router: Router,
      private route: ActivatedRoute) { }
 
+    getAuthService() {
+        return this.authService;
+    }
+
     onSaveData() {
         this.dataStorageService.storeRecipes().
             subscribe((response: Response) => {
