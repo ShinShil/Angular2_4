@@ -14,7 +14,7 @@ const appRoutes: Routes = [
         { path: '', component: StudentsTableComponent },
         { path: 'details/:index', component: StudentDetailsComponent }
     ] },
-    { path: 'login', component: AuthFormComponent },
+    { path: 'login', component: AuthFormComponent, pathMatch: 'full' },
     { path: '**', redirectTo: ''}
 ]
 
