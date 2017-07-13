@@ -10,8 +10,10 @@ import { Response } from '@angular/http';
     templateUrl: 'header.component.html'
 })
 export class HeaderComponent {
-    constructor(private dataStorageService: DataStorageService, private authService: AuthService, private router: Router,
-     private route: ActivatedRoute) { }
+    constructor(private dataStorageService: DataStorageService,
+        private authService: AuthService,
+        private router: Router,
+        private route: ActivatedRoute) { }
 
     getAuthService() {
         return this.authService;
@@ -28,6 +30,6 @@ export class HeaderComponent {
     }
     onLogout() {
         this.authService.logout();
-        this.router.navigate(['..'], {relativeTo: this.route});
+        this.router.navigate(['..'], { relativeTo: this.route });
     }
 }

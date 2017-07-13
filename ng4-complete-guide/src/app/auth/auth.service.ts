@@ -1,12 +1,19 @@
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 
 @Injectable()
 export class AuthService {
   token: string;
   authSubject = new Subject<boolean>();
-  constructor() { }
+  constructor(private fireAuth: AngularFireAuth) {
+    fireAuth.idToken.subscribe((data) => {
+      if (data) {
+        this.token = data['ie'];
+      }
+    })
+  }
 
   signupUser(email: string, password: string) {
     firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -18,16 +25,16 @@ export class AuthService {
   signinUser(email: string, password: string) {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(response => {
-        console.log(response);
         firebase.auth().currentUser.getToken()
           .then(token => {
             this.token = token;
+            console.log(token);
             this.authSubject.next(true);
           })
       })
       .catch(error => console.log(error))
   }
-  
+
   logout() {
     firebase.auth().signOut();
     this.token = null;
@@ -35,7 +42,7 @@ export class AuthService {
 
   getToken() {
     firebase.auth().currentUser.getToken()
-          .then(token => this.token = token)
+      .then(token => this.token = token)
     return this.token;
   }
 
