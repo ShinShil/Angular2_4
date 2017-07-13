@@ -1,5 +1,7 @@
+import { AuthService } from './../auth/auth.service';
+import { DatastorageService } from './../datastorage.service';
 import { StudentsService } from './../students.service';
-import { PhoneInputDirective } from './../phone-input.directive';
+import { PhoneInputDirective } from './phone-input.directive';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -13,7 +15,9 @@ export class RecordComponent implements OnInit {
 
   recordForm: FormGroup;
 
-  constructor(private studentsService: StudentsService) { }
+  constructor(private studentsService: StudentsService,
+    private database: DatastorageService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.recordForm = new FormGroup({
@@ -31,14 +35,15 @@ export class RecordComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.recordForm.get('email'));
-    // const res = this.studentsService.createStudent(this.recordForm.value);
-    // if (res != null) {
-    //   const message: string = res.message;
-    //   this.recordForm.get(res.control).setErrors({ 'serverError': message });
-    // } else {
-    //   this.recordForm.reset();
-    // }
+    const res = this.studentsService.createStudent(this.recordForm.value);
+    if (res != null) {
+      const message: string = res.message;
+      this.recordForm.get(res.control).setErrors({ 'serverError': message });
+    } else {
+      const acc = this.authService.generateAccount(this.recordForm.value);
+      // this.authService.signup(acc.login, acc.password);
+      this.recordForm.reset();
+    }
   }
 
   phoneValidator(control: FormControl): { [s: string]: boolean } {

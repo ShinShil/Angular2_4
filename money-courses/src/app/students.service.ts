@@ -1,3 +1,4 @@
+import { DatastorageService } from './datastorage.service';
 import { Student } from './student.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
@@ -6,19 +7,27 @@ import { Subject } from 'rxjs/Subject';
 export class StudentsService {
   studentsChanged = new Subject<Student[]>()
 
-  students: Student[] = [
-    new Student('John', 'Vanovich', 'test@test.com', '2542341')
-  ];
+  students: Student[] = [];
 
-  constructor() { }
+  constructor(private database: DatastorageService) {
+    database.students.subscribe(
+      (data) => {
+        this.students = data;
+        this.studentsChanged.next(this.getStudents());
+      },
+      (error) => {
+        console.log('ERROR in students service');
+        console.log(error);
+      }
+    )
+  }
 
   getStudents() {
     return this.students.slice();
   }
 
   updateStudentd(index: number, student: Student) {
-    this.students[index] = student;
-    this.studentsChanged.next(this.getStudents());
+    this.database.updateStudent(this.students[index].$key, student);
   }
 
   createStudent(student: Student): { control: string, message: string } {
@@ -36,8 +45,7 @@ export class StudentsService {
       }
     }
     if (err == null) {
-      this.students.push(student);
-      this.studentsChanged.next(this.getStudents());
+      this.database.createStudent(student);
     }
     return err;
   }
@@ -52,16 +60,6 @@ export class StudentsService {
   }
 
   deleteStudent(index: number) {
-    this.students.splice(index, 1);
-    this.studentsChanged.next(this.getStudents());
+    this.database.deleteStudent(this.students[index].$key).catch((error) => console.log(error));
   }
-
-  saveStudents() {
-
-  }
-
-  fetchStudents() {
-
-  }
-
 }

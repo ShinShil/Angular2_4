@@ -1,8 +1,9 @@
 export class Student {
     constructor(
-        public name,
-        public surname,
-        public email,
-        public phone
+        public name: string,
+        public surname: string,
+        public email: string,
+        public phone: string,
+        public $key: string        
     ) { }
 }

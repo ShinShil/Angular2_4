@@ -1,0 +1,13 @@
+<form (ngSubmit)="onSubmit(f, email)" #f="ngForm">
+  <div class="form-group">
+    <label for="email">Электронная почта</label>
+    <input class="form-control" type="text" ngModel #email="ngModel" required id="email" name="email">
+    <span class="help-block" *ngIf="email.invalid && !email.untouched">Заполните поле электронная почта</span>
+  </div>
+  <div class="form-group">
+    <label for="password">Пароль</label>
+    <input class="form-control" type="password" ngModel #password="ngModel"  required id="password" name="password">
+    <span class="help-block" *ngIf="password.invalid && !password.untouched">Заполните поле пароль</span>
+  </div>
+  <button  class="btn btn-primary" type="submit">Login</button>
+</form>

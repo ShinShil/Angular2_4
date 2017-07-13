@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button class="btn btn-danger">Delete</button>
+    <button class="btn btn-warning">Edit</button>
+    <button class="btn btn-primary" (click)="toList()">Go to list</button>
+  </div>
+  <div class="panel-body">
+    Подробнее о студенте
+  </div>
+  <ul *ngIf="student" class="list-group">
+    <li class="list-group-item">
+      <strong>Имя: </strong>{{student.name}}
+    </li>
+    <li class="list-group-item">
+      <strong>Фамилия: </strong>{{student.surname}}
+    </li>
+    <li class="list-group-item">
+      <strong>Почта: </strong>{{student.email}}
+    </li>
+    <li class="list-group-item">
+      <strong>Телефон: </strong>{{student.phone}}
+    </li>
+  </ul>
+  <ul *ngIf="!student" class="list-group">
+    <li class="list-group-item">
+      <strong>Loading student...</strong>
+    </li>
+  </ul>
+</div>

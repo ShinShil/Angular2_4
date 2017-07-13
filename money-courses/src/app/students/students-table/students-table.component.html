@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <button class="btn btn-success">Create</button>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Почта</th>
+          <th>Телефон</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr (click)="toDetails(i)" *ngFor="let student of students; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{student.name }}</td>
+          <td>{{student.surname }}</td>
+          <td>{{student.email | mailHider }}</td>
+          <td>{{student.phone | phoneHider}}</td>
+          <td>
+            <button class="btn btn-danger" (click)="onDeleteStudent(i)">X</button>
+            <button class="btn btn-warning" (click)="onDeleteStudent(i)">E</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
