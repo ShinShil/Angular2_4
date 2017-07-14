@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <button class="btn btn-success">Create</button>
+    <button class="btn btn-success" (click)="onCreate()">Создать</button>
   </div>
   <div class="panel-body">
     <table class="table">
@@ -22,8 +22,8 @@
           <td>{{student.email | mailHider }}</td>
           <td>{{student.phone | phoneHider}}</td>
           <td>
-            <button class="btn btn-danger" (click)="onDeleteStudent(i)">X</button>
-            <button class="btn btn-warning" (click)="onDeleteStudent(i)">E</button>
+            <button class="btn btn-danger"  (click)="onDeleteStudent(i)">X</button>
+            <button class="btn btn-warning" (click)="onEditStudent(i)">E</button>
           </td>
         </tr>
       </tbody>

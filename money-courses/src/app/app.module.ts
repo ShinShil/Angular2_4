@@ -24,6 +24,9 @@ import { PhoneHiderPipe } from './students/phone-hider.pipe';
 import { MailHiderPipe } from './students/mail-hider.pipe';
 import { StudentsTableComponent } from './students/students-table/students-table.component';
 import { StudentFormComponent } from './students/student-form/student-form.component';
+import { StudentBasicComponent } from './students/student-form/student-basic/student-basic.component';
+import { StudentAdvancedComponent } from './students/student-form/student-advanced/student-advanced.component';
+import { StudentEditTabsComponent } from './students/student-form/student-edit-tabs/student-edit-tabs.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { StudentFormComponent } from './students/student-form/student-form.compo
     MailHiderPipe,
     StudentsTableComponent,
     StudentFormComponent,
-    StudentDetailsComponent
+    StudentDetailsComponent,
+    StudentBasicComponent,
+    StudentAdvancedComponent,
+    StudentEditTabsComponent
   ],
   imports: [
     BrowserModule,

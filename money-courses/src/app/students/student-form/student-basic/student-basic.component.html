@@ -1,0 +1,46 @@
+<strong *ngIf="editMode && !student">Идёт загрузка... Ожидайте</strong>
+<form *ngIf="!editMode || student" [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Имя</label>
+    <input type="text" id="name" formControlName="name" class="form-control">
+    <div *ngIf="studentForm.get('name').invalid && !studentForm.get('name').untouched" class="help-block">
+      <span *ngIf="studentForm.get('name').errors['required']">Введите имя</span>
+      <span *ngIf="studentForm.get('name').errors['maxlength']">Имя слишком длинное</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="surname">Фамилия</label>
+    <input type="text" class="form-control" id="surname" formControlName="surname">
+    <div *ngIf="studentForm.get('surname').invalid && !studentForm.get('surname').untouched" class="help-block">
+      <span *ngIf="studentForm.get('surname').errors['required']">Введите фамилию</span>
+      <span *ngIf="studentForm.get('surname').errors['maxlength']">Фамилия слишком длинная</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Электронная почта</label>
+    <input type="text" class="form-control" id="email" formControlName="email">
+    <div *ngIf="studentForm.get('email').invalid && !studentForm.get('email').untouched" class="help-block">
+      <span *ngIf="studentForm.get('email').errors['required']">Введите адрес электронной почты</span>
+      <span *ngIf="(studentForm.get('email').errors['email'] || studentForm.get('email').errors['maxlength']) && !studentForm.get('email').errors['required']">
+              Не валидный адрес электронной почты
+            </span>
+      <span *ngIf="studentForm.get('email').errors['serverError']">{{studentForm.get('email').errors['serverError']}}</span>
+      <span *ngIf="studentForm.get('email').errors['emailExists']">Введённая почта уже используется</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="phone">Контактный телефон</label>
+    <input type="text" appPhoneInput formControlName="phone" id="phone" class="form-control">
+    <div *ngIf="studentForm.get('phone').invalid && !studentForm.get('phone').untouched" class="help-block">
+      <span *ngIf="studentForm.get('phone').errors['required']">Введите контактный телефон</span>
+      <span *ngIf="studentForm.get('phone').errors['phoneValidator'] && !studentForm.get('phone').errors['required']">Введён не полный номер</span>
+      <span *ngIf="studentForm.get('phone').errors['serverError']">{{studentForm.get('phone').errors['serverError']}}</span>
+      <span *ngIf="studentForm.get('phone').errors['phoneExists']">Введённый номер уже используется</span>
+    </div>
+  </div>
+  <button class="btn btn-primary" *ngIf="recordMode" [disabled]="studentForm.invalid">Записаться</button>
+  <button class="btn btn-success" *ngIf="editMode"[disabled]="studentForm.invalid">Сохранить</button>
+  <button class="btn btn-success" *ngIf="!editMode && !recordMode" [disabled]="studentForm.invalid">Создать</button>
+  <button class="btn btn-primary" *ngIf="!recordMode">Отмена</button>
+  <button class="btn btn-danger" *ngIf="editMode">Удалить</button>
+</form>

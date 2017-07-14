@@ -27,11 +27,15 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
+  onCreate() {
+    this.router.navigate(['create'], { relativeTo: this.route });
+  }
   onDeleteStudent(index: number) {
     this.studentsService.deleteStudent(index);
   }
-
+  onEditStudent(index: number) {
+    this.router.navigate(['edit', index], { relativeTo: this.route });
+  }
   toDetails(index: number) {
     this.router.navigate(['details', index], { relativeTo: this.route });
   }
