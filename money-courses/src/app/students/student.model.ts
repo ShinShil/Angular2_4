@@ -4,6 +4,12 @@ export class Student {
         public surname: string,
         public email: string,
         public phone: string,
-        public $key: string        
+        public $key: string,
+        public adv: [
+            {
+                name: string,
+                value: string
+            }
+        ]
     ) { }
 }

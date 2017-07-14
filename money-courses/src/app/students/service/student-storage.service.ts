@@ -1,11 +1,11 @@
 import { Router } from '@angular/router';
-import { AuthService } from './auth/auth.service';
-import { Student } from './student.model';
+import { AuthService } from '../../auth/auth.service';
+import { Student } from '../student.model';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 @Injectable()
-export class DatastorageService {
+export class StudentStorageService {
   students: FirebaseListObservable<any[]>;
   student: FirebaseObjectObservable<any>;
   constructor(private db: AngularFireDatabase

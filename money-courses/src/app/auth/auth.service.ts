@@ -1,7 +1,7 @@
-import { Logger } from './../shared/logger.functions';
-import { Student } from './../student.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Student } from '../students/student.model';
+
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subject } from 'rxjs/Subject';
 

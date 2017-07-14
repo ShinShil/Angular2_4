@@ -5,7 +5,7 @@
       <div class="alert alert-info">
         <p>Заполните поля формы и нажмите записаться. При успешной регистрации к вам на указанный телефонный номер придут логин и пароль.</p>
       </div>
-      <app-student-basic></app-student-basic>
+      <app-student-basic (studentCreated)="onStudentCreated()"></app-student-basic>
     </div>
   </div>
 </div>

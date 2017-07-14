@@ -1,14 +1,14 @@
-import { Student } from './../../../student.model';
-import { DatastorageService } from './../../../datastorage.service';
-import { AuthService } from './../../../auth/auth.service';
-import { StudentsService } from './../../../students.service';
-import { PhoneInputDirective } from './../../../record/phone-input.directive';
-
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { falseIfMissing } from 'protractor/built/util';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
+
+import { AuthService } from '../../../auth/auth.service';
+import { StudentStorageService } from '../../service/student-storage.service';
+import { StudentsService } from '../../service/students.service';
+import { Student } from '../../student.model';
+import { PhoneInputDirective } from './phone-input.directive';
+
 
 @Component({
   selector: 'app-student-basic',
@@ -22,9 +22,10 @@ export class StudentBasicComponent implements OnInit {
   studentForm: FormGroup;
   student: Student;
   recordMode: boolean;
+  @Output() studentCreated = new EventEmitter(); // for record
 
   constructor(private studentsService: StudentsService,
-    private database: DatastorageService,
+    private database: StudentStorageService,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute) { }
@@ -75,7 +76,7 @@ export class StudentBasicComponent implements OnInit {
       const message: string = res.message;
       this.studentForm.get(res.control).setErrors({ 'serverError': message });
     } else {
-      const acc = this.authService.generateAccount(this.studentForm.value);
+      // const acc = this.authService.generateAccount(this.studentForm.value);
       // this.authService.signup(acc.login, acc.password);
       this.studentForm.reset();
     }

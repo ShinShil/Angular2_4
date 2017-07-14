@@ -1,5 +1,5 @@
-import { DatastorageService } from './datastorage.service';
-import { Student } from './student.model';
+import { StudentStorageService } from './student-storage.service';
+import { Student } from '../student.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
@@ -9,7 +9,7 @@ export class StudentsService {
 
   students: Student[] = [];
 
-  constructor(private database: DatastorageService) {
+  constructor(private database: StudentStorageService) {
     database.students.subscribe(
       (data) => {
         this.students = data;

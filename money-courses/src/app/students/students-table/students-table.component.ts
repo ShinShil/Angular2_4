@@ -1,8 +1,9 @@
-import { Router, ActivatedRoute } from '@angular/router';
-import { StudentsService } from './../../students.service';
-import { Student } from './../../student.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { StudentsService } from '../service/students.service';
+import { Student } from '../student.model';
 
 @Component({
   selector: 'app-students-table',
