@@ -1,3 +1,4 @@
+import { AuthService } from '../../../auth/auth.service';
 import { StudentsService } from '../../service/students.service';
 import { Student } from '../../student.model';
 
@@ -16,12 +17,25 @@ export class StudentAdvancedComponent implements OnInit {
   advForm: FormGroup;
   index: number;
   student: Student;
+  changesSaved: boolean;
 
-  constructor(private studentsService: StudentsService
-    , private router: Router
-    , private route: ActivatedRoute) { }
+  constructor(
+    private studentsService: StudentsService,
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.changesSaved = false;
   }
+
+  setupForm() {
+
+  }
+
+  initForm() {
+
+  }
+
 
 }

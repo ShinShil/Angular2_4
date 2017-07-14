@@ -4,9 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs/Rx';
 
 import { AuthService } from '../../../auth/auth.service';
-import { AuthComponentInterface } from '../../../core/service/authComponent.interface';
 import { CanComponentDeactivate } from '../../../core/service/can-deactivate-guard.service';
-import { StudentStorageService } from '../../service/student-storage.service';
 import { StudentsService } from '../../service/students.service';
 import { Student } from '../../student.model';
 import { PhoneInputDirective } from './phone-input.directive';
@@ -28,16 +26,28 @@ export class StudentBasicComponent implements OnInit, OnDestroy, CanComponentDea
   changesSaved: boolean;
   @Output() studentCreated = new EventEmitter(); // for record
 
-  constructor(private studentsService: StudentsService,
-    private database: StudentStorageService,
+  constructor(
+    private studentsService: StudentsService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute
+  ) { }
 
   canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
     if (this.changesSaved || !this.authService.isAuthenticated()) {
       return true;
-    } else if (
+    } else if (this.studentForm.invalid) {
+      this.studentForm.get('name').markAsTouched();
+      this.studentForm.get('surname').markAsTouched();
+      this.studentForm.get('email').markAsTouched();
+      this.studentForm.get('phone').markAsTouched();
+      alert('Некоторые поля не валидны');
+      return false;
+    }else if (!this.editMode && !this.changesSaved) {
+      alert('Сохраните изменения на данной странице');
+      return false;
+    }
+     else if (
       this.student.name === this.studentForm.value.name
       && this.student.surname === this.studentForm.value.surname
       && this.student.email === this.studentForm.value.email
@@ -135,6 +145,7 @@ export class StudentBasicComponent implements OnInit, OnDestroy, CanComponentDea
   }
 
   ngOnDestroy() {
+
   }
 
   phoneValidator(control: FormControl): { [s: string]: boolean } {

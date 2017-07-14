@@ -27,7 +27,7 @@ const routes: Routes = [
             {
                 path: 'create', canActivate: [AuthGuardService], component: StudentFormComponent, children: [
                     { path: '', redirectTo: 'basic', pathMatch: 'full' },
-                    { path: 'basic', component: StudentBasicComponent },
+                    { path: 'basic', component: StudentBasicComponent, canDeactivate: [CanDeactivateGuard] },
                     { path: 'adv', component: StudentAdvancedComponent },
                 ]
             },

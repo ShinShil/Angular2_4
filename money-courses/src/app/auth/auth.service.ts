@@ -51,6 +51,9 @@ export class AuthService {
   isAuthenticatedPromise(ms: number): Promise<boolean> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
+        if (!this.isAuthenticated()) {
+          alert('Доступ запрещён! Для разблоикровки авторизируйтесь!');
+        }
         resolve(this.isAuthenticated());
       }, ms)
     })
