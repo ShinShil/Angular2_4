@@ -43,11 +43,10 @@ export class StudentBasicComponent implements OnInit, OnDestroy, CanComponentDea
       this.studentForm.get('phone').markAsTouched();
       alert('Некоторые поля не валидны');
       return false;
-    }else if (!this.editMode && !this.changesSaved) {
+    } else if (!this.editMode && !this.changesSaved) {
       alert('Сохраните изменения на данной странице');
       return false;
-    }
-     else if (
+    } else if (
       this.student.name === this.studentForm.value.name
       && this.student.surname === this.studentForm.value.surname
       && this.student.email === this.studentForm.value.email
