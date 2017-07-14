@@ -43,7 +43,6 @@ export class StudentBasicComponent implements OnInit {
       if (!this.student) {
         this.studentsService.studentsChanged.subscribe((students) => {
           const student = students[this.index];
-          console.log(student.surname);
           this.initForm(student.name, student.surname, student.email, student.phone);
           this.student = student;
         })
@@ -60,7 +59,8 @@ export class StudentBasicComponent implements OnInit {
       'name': new FormControl(name, [Validators.required, Validators.maxLength(20)]),
       'surname': new FormControl(surname, [Validators.required, Validators.maxLength(25)]),
       'email': new FormControl(email, [Validators.required, Validators.email],
-        this.studentsFieldExistsValidatorAsync('email').bind(this)),
+        this.studentsFieldExistsValidatorAsync('email').bind(this)
+      ),
       'phone': new FormControl(phone,
         [
           Validators.required,
@@ -71,14 +71,18 @@ export class StudentBasicComponent implements OnInit {
   }
 
   onSubmit() {
-    const res = this.studentsService.createStudent(this.studentForm.value);
-    if (res != null) {
-      const message: string = res.message;
-      this.studentForm.get(res.control).setErrors({ 'serverError': message });
-    } else {
-      // const acc = this.authService.generateAccount(this.studentForm.value);
-      // this.authService.signup(acc.login, acc.password);
-      this.studentForm.reset();
+    if (!this.editMode) {
+      this.studentsService.createStudent(this.studentForm.value)
+        .then((data) => {
+          this.studentForm.reset();
+          this.studentCreated.emit();
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.control) {
+            this.studentForm.get(error.control).setErrors({ 'serverError': error.message });
+          }
+        });
     }
   }
 

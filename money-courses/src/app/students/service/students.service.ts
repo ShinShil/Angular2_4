@@ -16,7 +16,7 @@ export class StudentsService {
         this.studentsChanged.next(this.getStudents());
       },
       (error) => {
-        console.log('ERROR in students service');
+        console.log('ERROR in constructor of studentsservice');
         console.log(error);
       }
     )
@@ -27,10 +27,10 @@ export class StudentsService {
   }
 
   updateStudentd(index: number, student: Student) {
-    this.database.updateStudent(this.students[index].$key, student);
+    return this.database.updateStudent(this.students[index].$key, student);
   }
 
-  createStudent(student: Student): { control: string, message: string } {
+  createStudent(student: Student): Promise<any> {
     let err: { control: string, message: string } = null;
     for (const st of this.students) {
       if (st.email === student.email) {
@@ -44,10 +44,13 @@ export class StudentsService {
         break;
       }
     }
-    if (err == null) {
-      this.database.createStudent(student);
-    }
-    return err;
+    return new Promise((resolve, reject) => {
+      if (err != null) {
+        reject(err);
+      } else {
+        resolve(this.database.createStudent(student))
+      }
+    });
   }
 
   isValExists(field: string, value: string) {
