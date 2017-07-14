@@ -74,6 +74,10 @@ export class StudentAdvancedComponent implements OnInit {
     return (<FormArray>this.advForm.get('adv')).controls;
   }
 
+  isStudentSet(student: Student) {
+    return student !== null && typeof student !== 'undefined';
+  }
+
   onAddProperty() {
     if (this.advForm.get('newName').valid && this.advForm.get('newValue').valid) {
       (<FormArray>this.advForm.get('adv')).push(new FormGroup({

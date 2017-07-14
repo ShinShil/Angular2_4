@@ -64,6 +64,10 @@ export class StudentBasicComponent implements OnInit, OnDestroy, CanComponentDea
     this.changesSaved = false;
   }
 
+  isStudentSet(student: Student) {
+    return student !== null && typeof student !== 'undefined';
+  }
+
   private setupForm() {
     if (this.editMode) {
       this.student = this.studentsService.students[this.index];

@@ -1,8 +1,7 @@
-<strong *ngIf="editMode && !student">Идёт загрузка... Ожидайте</strong>
+<strong *ngIf="editMode && !isStudentSet(student)">Идёт загрузка... Ожидайте</strong>
 
-<form *ngIf="!editMode || student" [formGroup]="studentForm" (ngSubmit)="onSubmit()">
-  <div class="btn-group">
-    <button class="btn btn-primary" *ngIf="recordMode" [disabled]="studentForm.invalid">Записаться</button>
+<form *ngIf="!editMode || isStudentSet(student)" [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+  <div *ngIf="!recordMode" class="btn-group">
     <button class="btn btn-success" *ngIf="editMode"[disabled]="studentForm.invalid">Сохранить</button>
     <button class="btn btn-success" *ngIf="!editMode && !recordMode" [disabled]="studentForm.invalid">Создать</button>
     <button class="btn btn-primary" *ngIf="!recordMode" type="button" (click)="onCancel()">Отмена</button>
@@ -46,4 +45,5 @@
       <span *ngIf="studentForm.get('phone').errors['phoneExists']">Введённый номер уже используется</span>
     </div>
   </div>
+    <button class="btn btn-primary" *ngIf="recordMode" [disabled]="studentForm.invalid">Записаться</button>
 </form>
