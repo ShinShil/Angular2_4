@@ -8,8 +8,9 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class AuthService {
 
-  token: string;
   authStateChanges = new Subject<boolean>();
+  init = false;
+  token = 'error';
 
   constructor(private fireAuth: AngularFireAuth,
     private router: Router,
@@ -47,8 +48,16 @@ export class AuthService {
       })
   }
 
+  isAuthenticatedPromise(ms: number): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.isAuthenticated());
+      }, ms)
+    })
+  }
+
   isAuthenticated(): boolean {
-    return this.token != null && !(typeof this.token === 'undefined');
+    return this.token != null && !(typeof this.token === 'undefined') && this.token !== 'error';
   }
 
   generateAccount(student: Student): { login: string, password: string } {

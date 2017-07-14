@@ -1,9 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 
 import { AuthService } from '../../../auth/auth.service';
+import { AuthComponentInterface } from '../../../core/service/authComponent.interface';
+import { CanComponentDeactivate } from '../../../core/service/can-deactivate-guard.service';
 import { StudentStorageService } from '../../service/student-storage.service';
 import { StudentsService } from '../../service/students.service';
 import { Student } from '../../student.model';
@@ -15,13 +17,15 @@ import { PhoneInputDirective } from './phone-input.directive';
   templateUrl: './student-basic.component.html',
   styleUrls: ['./student-basic.component.css']
 })
-export class StudentBasicComponent implements OnInit {
+export class StudentBasicComponent implements OnInit, OnDestroy, CanComponentDeactivate {
 
+  authSubscription: Subscription;
   index: number;
   editMode: boolean;
   studentForm: FormGroup;
   student: Student;
   recordMode: boolean;
+  changesSaved: boolean;
   @Output() studentCreated = new EventEmitter(); // for record
 
   constructor(private studentsService: StudentsService,
@@ -30,11 +34,25 @@ export class StudentBasicComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute) { }
 
+  canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
+    if (this.changesSaved || !this.authService.isAuthenticated()) {
+      return true;
+    } else if (
+      this.student.name === this.studentForm.value.name
+      && this.student.surname === this.studentForm.value.surname
+      && this.student.email === this.studentForm.value.email
+      && this.student.phone === this.studentForm.value.phone) {
+      return true;
+    }
+    return confirm('Внесённые вами данные не сохранятся, вы уверены, что хотите перейти?');
+  }
+
   ngOnInit() {
     this.index = +this.route.snapshot.parent.params['index'];
     this.editMode = this.index !== null && !isNaN(this.index);
     this.setupForm();
     this.recordMode = this.route.snapshot.data['recordMode'];
+    this.changesSaved = false;
   }
 
   private setupForm() {
@@ -74,6 +92,7 @@ export class StudentBasicComponent implements OnInit {
     if (!this.editMode) {
       this.studentsService.createStudent(this.studentForm.value)
         .then((data) => {
+          this.changesSaved = true;
           this.studentForm.reset();
           this.studentCreated.emit();
           this.router.navigate(['/students']);
@@ -87,6 +106,7 @@ export class StudentBasicComponent implements OnInit {
     } else {
       this.studentsService.updateStudent(this.index, this.studentForm.value)
         .then((data) => {
+          this.changesSaved = true;
           this.router.navigate(['/students'], { relativeTo: this.route });
         })
         .catch((error) => {
@@ -112,6 +132,9 @@ export class StudentBasicComponent implements OnInit {
           alert('Не удалось удалить студента');
         })
     }
+  }
+
+  ngOnDestroy() {
   }
 
   phoneValidator(control: FormControl): { [s: string]: boolean } {

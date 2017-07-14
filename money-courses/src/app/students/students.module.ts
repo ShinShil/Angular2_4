@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AuthGuardService } from '../auth/auth-guard.service';
+import { CanDeactivateGuard } from '../core/service/can-deactivate-guard.service';
 import { RecordComponent } from './record/record.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentAdvancedComponent } from './student-form/student-advanced/student-advanced.component';
@@ -36,6 +38,6 @@ import { StudentsComponent } from './students.component';
         StudentEditTabsComponent,
         RecordComponent
     ],
-    providers: [],
+    providers: [AuthGuardService, CanDeactivateGuard],
 })
 export class StudentsModule { }

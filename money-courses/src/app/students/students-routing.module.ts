@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuardService } from '../auth/auth-guard.service';
+import { CanDeactivateGuard } from '../core/service/can-deactivate-guard.service';
 import { RecordComponent } from './record/record.component';
 import { StudentDetailsComponent } from './student-details/student-details.component';
 import { StudentAdvancedComponent } from './student-form/student-advanced/student-advanced.component';
@@ -16,14 +18,14 @@ const routes: Routes = [
             { path: '', component: StudentsTableComponent },
             { path: 'details/:index', component: StudentDetailsComponent },
             {
-                path: 'edit/:index', component: StudentFormComponent, children: [
+                path: 'edit/:index', canActivate: [AuthGuardService], component: StudentFormComponent, children: [
                     { path: '', redirectTo: 'basic', pathMatch: 'full' },
-                    { path: 'basic', component: StudentBasicComponent },
+                    { path: 'basic', component: StudentBasicComponent, canDeactivate: [CanDeactivateGuard] },
                     { path: 'adv', component: StudentAdvancedComponent },
                 ]
             },
             {
-                path: 'create', component: StudentFormComponent, children: [
+                path: 'create', canActivate: [AuthGuardService], component: StudentFormComponent, children: [
                     { path: '', redirectTo: 'basic', pathMatch: 'full' },
                     { path: 'basic', component: StudentBasicComponent },
                     { path: 'adv', component: StudentAdvancedComponent },

@@ -1,4 +1,5 @@
 import { StudentStorageService } from './student-storage.service';
+import { AuthService } from '../../auth/auth.service';
 import { Student } from '../student.model';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ export class StudentsService {
 
   students: Student[] = [];
 
-  constructor(private database: StudentStorageService, private router: Router) {
+  constructor(private database: StudentStorageService, private router: Router, private authService: AuthService) {
     database.students.subscribe(
       (data) => {
         this.students = data;
@@ -97,15 +98,19 @@ export class StudentsService {
   }
 
   commonDeleteAction(index: number) {
-    if (confirm('Вы действительно хотите удалить студента')) {
-      this.deleteStudent(index)
-        .then((data) => {
-          this.router.navigate(['/students']);
-        })
-        .catch((error) => {
-          console.log(error);
-          alert('Не удалось удалить студента');
-        })
+    if (!this.authService.isAuthenticated()) {
+      alert('Доступ запрещён авторизируйтесь для разблокировки');
+    } else {
+      if (confirm('Вы действительно хотите удалить студента')) {
+        this.deleteStudent(index)
+          .then((data) => {
+            this.router.navigate(['/students']);
+          })
+          .catch((error) => {
+            console.log(error);
+            alert('Не удалось удалить студента');
+          })
+      }
     }
   }
 }
