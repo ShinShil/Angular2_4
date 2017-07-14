@@ -32,7 +32,15 @@ export class StudentsTableComponent implements OnInit, OnDestroy {
     this.router.navigate(['create'], { relativeTo: this.route });
   }
   onDeleteStudent(index: number) {
-    this.studentsService.deleteStudent(index);
+    if (confirm('Вы действительно хотите удалить студента?')) {
+      this.studentsService.deleteStudent(index)
+        .then((data) => {
+          this.router.navigate(['/students']);
+        })
+        .catch((data) => {
+          alert('Не удалось удалить студента');
+        })
+    }
   }
   onEditStudent(index: number) {
     this.router.navigate(['edit', index], { relativeTo: this.route });

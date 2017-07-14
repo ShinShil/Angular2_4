@@ -22,8 +22,8 @@
           <td>{{student.email | mailHider }}</td>
           <td>{{student.phone | phoneHider}}</td>
           <td>
-            <button class="btn btn-danger"  (click)="onDeleteStudent(i)">X</button>
-            <button class="btn btn-warning" (click)="onEditStudent(i)">E</button>
+            <button class="btn btn-danger"  (click)="onDeleteStudent(i); $event.stopPropagation()">X</button>
+            <button class="btn btn-warning" (click)="onEditStudent(i); $event.stopPropagation()">E</button>
           </td>
         </tr>
       </tbody>

@@ -29,10 +29,17 @@ export class StudentDetailsComponent implements OnInit {
       this.index = +this.route.snapshot.params['index'];
       this.student = this.studentsService.students[this.index];
     })
-    
   }
 
   toList() {
     this.router.navigate(['/students'])
+  }
+
+  toEdit() {
+    this.router.navigate(['/students', 'edit', this.index]);
+  }
+
+  onDelete() {
+    this.studentsService.commonDeleteAction(this.index);
   }
 }

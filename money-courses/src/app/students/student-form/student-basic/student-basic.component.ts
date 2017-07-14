@@ -76,6 +76,7 @@ export class StudentBasicComponent implements OnInit {
         .then((data) => {
           this.studentForm.reset();
           this.studentCreated.emit();
+          this.router.navigate(['/students']);
         })
         .catch((error) => {
           console.log(error);
@@ -83,6 +84,33 @@ export class StudentBasicComponent implements OnInit {
             this.studentForm.get(error.control).setErrors({ 'serverError': error.message });
           }
         });
+    } else {
+      this.studentsService.updateStudent(this.index, this.studentForm.value)
+        .then((data) => {
+          this.router.navigate(['/students'], { relativeTo: this.route });
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.control) {
+            this.studentForm.get(error.control).setErrors({ 'serverError': error.message });
+          }
+        });
+    }
+  }
+
+  onCancel() {
+    this.router.navigate(['/students'], { relativeTo: this.route });
+  }
+
+  onDelete() {
+    if (confirm('Вы действительно хотите удалить студента?')) {
+      this.studentsService.deleteStudent(this.index)
+        .then((data) => {
+          this.router.navigate(['/students']);
+        })
+        .catch((data) => {
+          alert('Не удалось удалить студента');
+        })
     }
   }
 
@@ -96,7 +124,8 @@ export class StudentBasicComponent implements OnInit {
   studentsFieldExistsValidatorAsync = (fieldname: string) => {
     return (control: FormControl): Promise<any> | Observable<any> => {
       return new Promise((resolve, reject) => {
-        if (this.studentsService.isValExists(fieldname, control.value)) {
+        if (this.studentsService.isValExists(fieldname, control.value)
+          && !this.studentsService.isFieldValUntouched(this.index, fieldname, control.value)) {
           const s = fieldname + 'Exists';
           resolve({ [s]: true });
         } else {
