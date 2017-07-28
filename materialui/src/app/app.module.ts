@@ -9,14 +9,12 @@ import { HeaderComponent } from './header/header.component';
 import 'hammerjs'
 
 import { MaterialModule } from '@angular/material';
-import { DialogExampleComponent } from './dialog-example/dialog-example.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormControlsComponent,
     HeaderComponent,
-    DialogExampleComponent
   ],
   imports: [
     BrowserModule,
