@@ -27,7 +27,6 @@ export class DataStorageService {
       this.recipeService.getRecipes(),
       {
         observe: 'events',
-        params: new HttpParams().set('auth', token),
         reportProgress: true
       });
   }
@@ -35,7 +34,7 @@ export class DataStorageService {
   getRecipes() {
     const token = this.authService.getToken();
 
-    this.http.get<Recipe[]>('https://ng-recipe-book-73a68.firebaseio.com/data.json?auth=' + token)
+    this.http.get<Recipe[]>('https://ng-recipe-book-73a68.firebaseio.com/data.json')
       .map(
         (recipes) => {
           for (let recipe of recipes) {
