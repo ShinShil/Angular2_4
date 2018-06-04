@@ -5,7 +5,7 @@ import { Ingredient } from '../shared/ingredient.model';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { StartEditing } from './store/shopping-list.actions';
-import { AppState } from './store/shopping-list.reducers';
+import { AppState } from '../store/app.reducers';
 
 @Component({
   selector: 'app-shopping-list',

@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Ingredient } from '../../shared/ingredient.model';
 import { Store } from '@ngrx/store';
 import { AddIngredient, UpdateIngredient, DeleteIngredient, StopEditing } from '../store/shopping-list.actions';
-import { AppState } from '../store/shopping-list.reducers';
+import { AppState } from '../../store/app.reducers';
 
 @Component({
   selector: 'app-shopping-edit',
