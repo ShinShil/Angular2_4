@@ -27,6 +27,11 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
                 ...state,
                 token: action.payload
             }
+        case (AuthActions.AUTH_FAIL):
+            console.log(action.payload);
+            return {
+                ...state
+            }
         default:
             return state;
     }
