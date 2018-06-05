@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 import { TryLogout } from '../../auth/store/auth.actions';
 import { State } from '../../auth/store/auth.reducers';
-import { DataStorageService } from '../../shared/data-storage.service';
+import { FetchRecipes, StoreRecipes } from '../../recipes/store/recipe.actions';
 import { AppState } from '../../store/app.reducers';
 
 // import { HttpEvent, HttpEventType } from '@angular/common/http';
@@ -16,8 +16,7 @@ import { AppState } from '../../store/app.reducers';
 export class HeaderComponent implements OnInit {
   authState: Observable<State>;
 
-  constructor(private dataStorageService: DataStorageService,
-              private store: Store<AppState>) {
+  constructor(private store: Store<AppState>) {
   }
 
   ngOnInit() {
@@ -25,16 +24,11 @@ export class HeaderComponent implements OnInit {
   }
 
   onSaveData() {
-    this.dataStorageService.storeRecipes()
-      .subscribe(
-        (response) => {
-          console.log(response);
-        }
-      );
+    this.store.dispatch(new StoreRecipes());
   }
 
   onFetchData() {
-    this.dataStorageService.getRecipes();
+    this.store.dispatch(new FetchRecipes());
   }
 
   onLogout() {
